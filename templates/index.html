@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="title">{{ title }}</h2>
+
+{% for job in jobs %}
+
+    <h2 class="action">Action # {{ loop.index }}</h2>
+
+    <table>
+        <tr class="row1">
+            <td>Title of activity</td>
+            <td>Team leader</td>
+            <td>Duration</td>
+            <td style="text-align: center">List of collaborators</td>
+            <td style="text-align: center">Is finished</td>
+        </tr>
+
+        <tr class="row2">
+            <td class="job">{{ job.job }}</td>
+
+            {% for user in users %}
+                {% if user.id == job.team_leader %}
+                    <td class="leader">{{ user.surname }}, {{ user.name }}</td>
+                {% endif %}
+            {% endfor %}
+
+            <td class="work-size">{{ job.work_size }} hours</td>
+            <td class="collaborators">{{ job.collaborators }}</td>
+
+            {% if job.is_finished == True %}
+                <td class="is_finished" style="background:rgba(0,255,0,0.3)">Yes</td>
+            {% else %}
+                <td class="is_finished" style="background:rgba(255,0,0,0.3)">No</td>
+            {% endif %}
+        </tr>
+    </table>
+{% endfor %}
+
+{% endblock %}
